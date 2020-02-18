@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ titlename }} - Charts
+{% endblock %}
+
+{% block content %}
+<div class="row">
+        <h4>{{ titlename }} - Sessions {{session}}</h4>
+        <a href="{{url_for('patients.patient_details', name = name)}}" class="btn waves-effect waves-light white-text blue darken-2">All Sessions</a>
+        <a href="{{url_for('patients.display_session', name = name, session = session)}}" class="btn waves-effect waves-light white-text blue darken-2">Go Back</a>
+</div>
+
+    {{chart_histogram}}
+    {{chart_scatter}}
+
+{% endblock %}

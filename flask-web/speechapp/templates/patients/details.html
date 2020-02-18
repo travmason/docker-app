@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ titlename }} - Details
+{% endblock %}
+
+{% block content %}
+
+    <h3>{{ titlename }}</h3>
+
+        <div class="col s12 m6">
+
+            <h5>Sessions</h5>
+            <div class="row">
+                <ul>
+                    {% if sessions %}
+                        {% for i in range(0, sessions) %}
+                            <li>
+                                <div class="col s12 m3 l3">
+                                    Session {{session_list[i]}} :-
+                                </div>
+                                <div class="col s12 m3 l3">
+                                {% if statuses[i] == '0' or statuses[i] == '1'%}
+                                    <a class="grey-text">View</a>
+                                {% else %}
+                                    <a href="{{url_for('patients.display_session', name = name, session = session_list[i])}}" onclick="loading()">View</a>
+                                {% endif %}
+                                </div>
+                                <div class="col s12 m3 l3">
+                                {% if statuses[i] == '1' %}
+                                    <a class="grey-text">Processing..</a>
+                                {% elif statuses[i] == '2'%}
+                                    <a class="grey-text">Process</a>
+                                {% else %}
+                                    <a href="{{url_for('patients.process', name = name, session = session_list[i])}}" onclick="loading()">Process</a>
+                                {% endif %}
+                                </div>
+                                <div class="col s12 m3 l3">
+                                    <a href="{{url_for('patients.delete_patient_session', name = name, session = session_list[i])}}">Delete</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                            <p>{{titlename}} does not have any sessions recorded. Please <a href="{{url_for('upload.fileupload')}}">upload</a> some new sessions.</p>
+                    {% endif %}
+                </ul>
+            </div>
+            <a href="{{url_for('upload.fileupload')}}" class="btn waves-effect waves-light white-text blue darken-2" onclick="storeUploadData('{{titlename}}','{{sessions}}')">Upload New</a>        
+            <a href="{{url_for('patients.show_patients')}}" class="btn waves-effect waves-light white-text blue darken-2">Go Back</a>        
+        </div>
+{% endblock %}
+
+{% block side %}
+        <div class="col s12 m5">
+            <div class="card-panel small">
+                <h6 class="black-text">Info</h6>
+                {% if sessions %}
+                <span class="black-text">Click <strong>"View"</strong> to view the inference table as well as the downloads for the session.
+                </span>
+                {% else %}
+                <span class="black-text"> Looks like {{ titlename }} does not have any sessions.
+                </span>
+                {% endif %}
+            </div>
+            {% if sessions %}
+            <div class="card-panel small">
+                <h6 class="black-text">Info</h6>
+                <span class="black-text">Clicking <strong>"Process"</strong> allows the server to process the audio into segments for anaysis and inferencing.
+                    Which requires some time to load and process the data for the first time. May take up to 10 minutes depending on the PC load.
+                </span>
+            </div>
+            {% endif %}
+        </div>
+{% endblock %}

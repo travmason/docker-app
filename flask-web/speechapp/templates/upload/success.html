@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+<!-- Just type the title name between block title -->
+{% block title %}
+
+    Success!
+
+{% endblock %}
+
+{% block content %}
+    <h2>
+        Successfully uploaded a file.
+    </h2>
+    <p>
+        <a href="{{url_for('upload.fileupload')}}">Click Here</a> to go back. <a href="{{url_for('patients.show_patients')}}">Click Here</a> to see list of patients.
+    </p>
+{% endblock %}

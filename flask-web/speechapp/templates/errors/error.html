@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Oops!
+{% endblock %}
+
+{% block content %}
+    <h3>Oops something went wrong..</h3>
+
+    <p>{{ error }}</p>
+
+    <p>{{ additional_details }}</p>
+
+    <p>
+        <a href="{{url_for('upload.fileupload')}}">Click Here</a> to go back.
+    </p>
+{% endblock %}

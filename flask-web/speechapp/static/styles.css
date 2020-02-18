@@ -1,0 +1,28 @@
+/* Override submit button text color */
+
+input#submit {
+  color: #fff;
+}
+
+div#loading {
+  display: none;
+  cursor: wait;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.scroll-table {
+  max-height: calc(100vh - 50vh);
+  overflow-y: scroll;
+  padding-top: 0em;
+}
+
+a.disabled {
+  color: #9e9e9e !important;
+}

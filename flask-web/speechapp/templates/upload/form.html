@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+<!-- Just type the title name between block title -->
+{% block title %}
+  Upload File
+{% endblock %}
+
+{% block content %}
+
+    <h2>Upload a new File</h2>
+    <form id="form" onsubmit = "loading()" autocomplete="off" method=POST enctype=multipart/form-data>
+      {{ form.csrf_token }}
+      <div class="row">
+        <p class="center-align">Use the form to upload mp3 files or mp4 files to the server. mp4 files will automatically be converted to mp3 files for processing.</p>
+      </div>
+
+      <div class="row">
+        <div class="col s12 input-field">
+          {{ form.patient_name.label }}
+          {{ form.patient_name(size=20) }}
+          {% if form.patient_name.errors %}
+          {% for error in form.patient_name.errors %}
+          <span class="helper-text red-text">{{ error }}</span>
+          {% endfor %}
+          {% endif %}
+        </div>
+        <div class="col s12 input-field">
+          {{ form.session_number.label }}
+          {{ form.session_number(size=14, placeholder="Numbers only") }}
+          {% if form.session_number.errors %}
+          {% for error in form.session_number.errors %}
+          <span class="helper-text red-text">{{ error }}</span>
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class ="row">
+        <div class="col s12 file-field input-field">
+          <div class="btn blue darken-2">
+            <span>Upload File</span>
+            {{ form.uploadedfile }}
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+          {% if form.uploadedfile.errors %}
+          {% for error in form.uploadedfile.errors %}
+          <span class="helper-text red-text">{{ error }}</span>
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          {{ form.submit (class="btn waves-effect waves-light white-text blue darken-2")}}
+        </div>
+      </div>
+    </form>
+
+    <script>
+        $(document).ready(function(){
+          $("#patient_name").val(sessionStorage.patient_name)
+          $("#session_number").val(sessionStorage.session_number)
+          M.updateTextFields();
+        });
+    </script>
+
+{% endblock %}

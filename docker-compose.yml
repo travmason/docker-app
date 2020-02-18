@@ -1,0 +1,19 @@
+version: '3'
+services: 
+  web:
+    restart: always
+    build: ./flask-web
+    command: bash run_prodmode.sh
+    expose: 
+      - '5000'
+    volumes: 
+      - data:/code
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - 80:80
+    depends_on: 
+      - web
+volumes:
+  data:

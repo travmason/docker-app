@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{titlename}} - Sessions
+{% endblock %}
+    
+{% block content %}
+    <h3> {{titlename}} - Session {{session}}</h3>
+
+    <ul class="collapsible">
+            {% if flag %}
+            <li>
+                <div class="collapsible-header"><i class="material-icons">view_headline</i>Prediction Table</div>
+                <div class="collapsible-body scroll-table">
+                    {% for table in tables %}
+                        {{ table | safe }}
+                    {% endfor %}
+                </div>
+            </li>
+            {% endif %}
+            <li>
+                <div class="collapsible-header"><i class="material-icons">file_download</i>Downloads</div>
+                <div class="collapsible-body">
+                    {% if flag %}
+                    <a href="{{url_for('patients.download_csv', name = name, session = session)}}" class="btn blue darken-2"><i class="material-icons right">file_download</i>CSV</a>
+                    <a href="{{url_for('patients.download_source', name = name, session = session)}}" class="btn blue darken-2"><i class="material-icons right">file_download</i>Source Audio</a>
+                    <a href="{{url_for('patients.download_chunks', name = name, session = session)}}" class="btn blue darken-2"><i class="material-icons right">file_download</i>Segmented Audio</a>
+                    {% else %}
+                    <a class="btn blue darken-2 disabled"><i class="material-icons right">file_download</i>CSV</a>
+                    <a class="btn blue darken-2 disabled"><i class="material-icons right">file_download</i>Source Audio</a>
+                    <a class="btn blue darken-2 disabled"><i class="material-icons right">file_download</i>Segmented Audio</a>
+                    {% endif %}   
+                </div>
+            </li>
+        </ul>
+        {% if flag %}
+            <a href="{{url_for('patients.display_chart', name = name, session = session)}}" class="btn waves-effect waves-light white-text blue darken-2" onclick="loading()"><i class="material-icons left">insert_chart</i>View Chart</a>
+        {% else %}
+            <a class="btn blue darken-2 disabled"><i class="material-icons left">insert_chart</i>View Chart</a>
+        {% endif %}   
+        <a href="{{url_for('patients.patient_details', name = name)}}" class="btn waves-effect waves-light white-text blue darken-2">Go Back</a>
+{% endblock %}

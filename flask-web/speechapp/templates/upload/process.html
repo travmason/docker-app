@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Processing
+{% endblock %}
+
+{% block headscripts %}
+<script type="text/javascript">// <![CDATA[
+  function loading(){
+      $("#loading").show();
+      $("#content").hide();
+  }//preloader
+  window.onload = loading
+// ]]></script>
+{% endblock %}
+
+{% block content %}
+{% endblock %}

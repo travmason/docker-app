@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}{% endblock %}            
+        </title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>        
+        <script src="{{url_for('static', filename='javascript.js')}}"></script>            
+        {% block headscripts%}{% endblock %}
+    </head>
+    <body>
+
+        <!-- Navbar goes here -->
+        <nav class="app-menu blue darken-2">
+            <div class="nav-wrapper">
+                <ul>
+                    <li>
+                        <a href="{{url_for('upload.fileupload')}}" class="tooltipped" data-position="bottom" data-tooltip="Home"><i class="large material-icons">home</i></a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('patients.show_patients')}}" class="tooltipped" data-position="bottom" data-tooltip="Patients"><i class="large material-icons">people</i></a>    
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Display error messages -->
+        <div class="center-align">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'alert' %}
+                        <div class="danger flash-message red lighten-5 red-text text-darken-3">{{message}}</div>
+                    {% else %}
+                        <div class="info flash-message 9 green lighten-5 green-text text-darken-3">{{message}}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        </div>
+
+        <!-- Loading HTML -->
+        {% if loadable %}
+            <div id="loading">
+                <div class="centered center">
+                    <div class="row center-align">
+                        <h4>Please wait while data is processing..</h4>
+                    </div>
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                        <div class="spinner-layer spinner-red">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                        <div class="spinner-layer spinner-yellow">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                        <div class="spinner-layer spinner-green">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <!-- Web Content -->
+        <div id="content" class="container">
+            <div class="row">
+                {% block content %}
+                {% endblock %}
+    
+                <aside>
+                    {% block side %}{% endblock %}
+                </aside>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Delete {{titlename}}
+{% endblock %}
+
+{% block content %}
+    {% if patient %}
+        <p>Are you sure you want to delete {{titlename}}?</p>
+        <div class="row">
+            <form onsubmit="loading()" method="POST">
+                {{ form.submit (class="btn waves-effect waves-light white-text blue darken-2")}}
+                <a class="btn waves-effect waves-light white-text blue darken-2" onclick="goBack()">Go Back</a>
+            </form>
+        </div>
+    {% elif session %}
+        <p>Are you sure you want to delete {{titlename}} - Session {{session_number}}?</p>
+        <div class="row">
+            <form onsubmit="loading()" method="POST">
+                {{ form.submit (class="btn waves-effect waves-light white-text blue darken-2")}}
+                <a class="btn waves-effect waves-light white-text blue darken-2", onclick="goBack()">Go Back</a>
+            </form>
+        </div>    
+    {% endif %}
+
+{% endblock %}

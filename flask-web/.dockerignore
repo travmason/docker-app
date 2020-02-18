@@ -1,0 +1,18 @@
+.*
+**/.git
+
+# ignore pycaches
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+instance/
+env/
+
+.env
+.dockerignore
+.DS_Store
+*.code-workspace
+.git/
+Dockerfile

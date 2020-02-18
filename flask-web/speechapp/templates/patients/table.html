@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Patients
+{% endblock %}
+
+{% block content %}
+
+    {% if patients is none %}
+
+        <p>There are no patients on record.</p>
+        <p>Try to <a href="{{url_for('upload.fileupload')}}">upload</a> some information.</p>
+
+    {% else %}
+        <table class = "responsive-table highlight">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Patient Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(0, length) %}
+                    <tr>
+                        <td>
+                            {{ patients[i] }} 
+                        </td>
+                        <td>
+                            <span><a href="{{url_for('patients.patient_details', name = patient_folder[i])}}">View Sessions</a></span>
+                            <br/>
+                            <span><a href="{{url_for('patients.delete_patient', name = patient_folder[i])}}">Delete</a></span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <script>
+        $(document).ready(clearSS())
+    </script>
+{% endblock %}
