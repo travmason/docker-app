@@ -1,6 +1,7 @@
-version: '3'
+version: '3.7'
 services: 
   web:
+    container_name: app_web_1
     restart: always
     build: ./flask-web
     command: bash run_prodmode.sh
@@ -9,6 +10,7 @@ services:
     volumes: 
       - data:/code
   nginx:
+    container_name: app_nginx_1
     restart: always
     build: ./nginx
     ports:
@@ -17,3 +19,4 @@ services:
       - web
 volumes:
   data:
+    name: app_data
